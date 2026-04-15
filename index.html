@@ -1,1 +1,355 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>for my lei 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* 🌌 BACKGROUND */
+body {
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(circle at top, #0f0f1a, #05050a);
+  color: white;
+  transition: all 0.5s;
+}
+
+/* ✨ PARTICLES */
+.particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.5;
+  animation: floatUp 6s linear infinite;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(100vh); opacity: 0; }
+  to { transform: translateY(-10vh); opacity: 1; }
+}
+
+/* 📱 LOCK SCREEN */
+#lockscreen {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  background: radial-gradient(circle at top, #1a1a2e, #0f0f1a);
+}
+
+.lock-time {
+  font-size: 4em;
+  font-weight: 500;
+  text-shadow: 0 0 20px #ff4b5c;
+}
+
+.lock-text {
+  margin-top: 10px;
+  opacity: 0.7;
+}
+
+.scan {
+  width: 120px;
+  height: 120px;
+  border: 2px solid #ff4b5c;
+  border-radius: 50%;
+  margin-top: 30px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.6; }
+}
+
+/* 💬 CHAT APP */
+#app {
+  display: none;
+  height: 100vh;
+  flex-direction: column;
+  background: #0f0f1a;
+}
+
+.topbar {
+  padding: 15px;
+  text-align: center;
+  background: #1c1c2e;
+  font-weight: 500;
+}
+
+.chat {
+  flex: 1;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.bubble {
+  max-width: 70%;
+  padding: 12px 15px;
+  margin: 5px;
+  border-radius: 18px;
+  font-size: 0.95em;
+  opacity: 0;
+  animation: fadeIn 0.4s forwards;
+  transition: transform 0.2s;
+}
+
+.me {
+  background: #ff4b5c;
+  align-self: flex-end;
+}
+
+.her {
+  background: #2a2a3d;
+  align-self: flex-start;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+/* 🌙 SCENE */
+#scene {
+  display: none;
+  height: 100vh;
+  background: radial-gradient(circle at top, #1a1a2e, #05050a);
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+.text {
+  font-size: 1.5em;
+  opacity: 0;
+  transition: 1s;
+}
+
+.show { opacity: 1; }
+
+.name {
+  font-size: 2em;
+  margin-top: 10px;
+  opacity: 0;
+  transition: 2s;
+  text-shadow: 0 0 20px #ff4b5c;
+}
+
+img {
+  width: 260px;
+  border-radius: 20px;
+  margin-top: 20px;
+  opacity: 0;
+  transition: 1.5s;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+img.show { opacity: 1; }
+
+.final {
+  margin-top: 20px;
+  opacity: 0;
+  transition: 2s;
+  font-size: 1.2em;
+}
+
+.hint {
+  position: absolute;
+  bottom: 20px;
+  opacity: 0.4;
+  font-size: 0.8em;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ✨ PARTICLES -->
+<script>
+for (let i = 0; i < 40; i++) {
+  let p = document.createElement("div");
+  p.className = "particle";
+  p.style.left = Math.random() * 100 + "vw";
+  p.style.animationDuration = (Math.random() * 5 + 3) + "s";
+  document.body.appendChild(p);
+}
+</script>
+
+<!-- 📱 LOCKSCREEN -->
+<div id="lockscreen" onclick="unlock()">
+  <div class="lock-time">💖</div>
+  <div class="lock-text">Face ID required</div>
+  <div class="scan"></div>
+</div>
+
+<!-- 💬 APP -->
+<div id="app">
+  <div class="topbar">Messages</div>
+  <div class="chat" id="chat"></div>
+</div>
+
+<!-- 🌙 SCENE -->
+<div id="scene" onclick="nextStep()">
+  <div>
+    <div id="text" class="text show">hi mahal 🫶</div>
+    <div id="name" class="name">my lei 💖</div>
+
+    <img id="photo" src="https://via.placeholder.com/300">
+
+    <div id="final" class="final">
+      i love you more than anything 💖<br>
+      i’m forever yours. always. 💍
+    </div>
+  </div>
+</div>
+
+<div class="hint">tap 💌</div>
+
+<!-- 🎶 MUSIC -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="passenger-seat.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+/* 🔓 UNLOCK + CINEMATIC AUDIO */
+function unlock() {
+  document.getElementById("lockscreen").style.display = "none";
+  document.getElementById("app").style.display = "flex";
+
+  startChat();
+
+  const music = document.getElementById("bgMusic");
+  music.volume = 0;
+
+  const playPromise = music.play();
+
+  if (playPromise !== undefined) {
+    playPromise.then(() => {
+
+      // 🎬 FADE IN MUSIC (cinematic)
+      let vol = 0;
+      const fade = setInterval(() => {
+        if (vol < 0.5) {
+          vol += 0.015;
+          music.volume = vol;
+        } else {
+          clearInterval(fade);
+        }
+      }, 120);
+
+    }).catch(() => {});
+  }
+
+  // 💓 heartbeat feel
+  document.body.style.transform = "scale(1.01)";
+  setTimeout(() => {
+    document.body.style.transform = "scale(1)";
+  }, 300);
+}
+
+/* 💬 CHAT */
+const chatMessages = [
+  {text: "h1 m4h@l kU3", type: "me"},
+  {text: "hi alli ganda :p", type: "her"},
+  {text: "h@pPy b1rThd4y 🎂", type: "me"},
+  {text: ":P", type: "her"},
+  {text: "i have something for you", type: "me"},
+  {text: "(dapat gulat ka d2 😳)", type: "her"},
+  {text: "wait lang", type: "me"},
+  {text: "open this when you're ready 💌", type: "me"}
+];
+
+let i = 0;
+
+function startChat() {
+  const chat = document.getElementById("chat");
+
+  function show() {
+    if (i < chatMessages.length) {
+      const msg = document.createElement("div");
+      msg.className = "bubble " + chatMessages[i].type;
+      msg.innerText = chatMessages[i].text;
+
+      // 💬 tiny cinematic motion
+      msg.style.transform = "translateY(5px)";
+      setTimeout(() => msg.style.transform = "translateY(0)", 100);
+
+      chat.appendChild(msg);
+      i++;
+
+      setTimeout(show, 1100);
+    } else {
+      setTimeout(startScene, 1500);
+    }
+  }
+
+  show();
+}
+
+/* 🌙 SCENE */
+let step = 0;
+
+const messages = [
+  "hi love ko",
+  "happy birthday 🎂",
+  "and happy 11th mwehehe 💖",
+  "you mean everything to me, please know that I will always cherish you, no matter what happen",
+  "u r myyy",
+  "my safe place",
+  "my home",
+  "my favorite person 🥹",
+  "i'll always choose you",
+  "again and again :("
+];
+
+function startScene() {
+  document.getElementById("app").style.display = "none";
+  document.getElementById("scene").style.display = "flex";
+
+  const music = document.getElementById("bgMusic");
+  music.volume = 0.5;
+  music.play().catch(() => {});
+}
+
+function nextStep() {
+  const text = document.getElementById("text");
+  const name = document.getElementById("name");
+  const photo = document.getElementById("photo");
+  const final = document.getElementById("final");
+
+  step++;
+
+  if (step < messages.length) {
+    text.classList.remove("show");
+
+    setTimeout(() => {
+      text.innerText = messages[step];
+      text.classList.add("show");
+    }, 400);
+  }
+
+  if (step === 3) name.classList.add("show");
+  if (step === 5) photo.classList.add("show");
+  if (step === messages.length - 1) final.classList.add("show");
+}
+</script>
+
+</body>
+</html>
