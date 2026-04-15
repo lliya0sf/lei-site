@@ -17,8 +17,8 @@
 
 /* 🌌 BACKGROUND */
 body {
-  height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
+  overflow: auto;
   background: radial-gradient(circle at top, #0f0f1a, #05050a);
   color: white;
   transition: all 0.5s;
@@ -195,7 +195,7 @@ for (let i = 0; i < 40; i++) {
 <!-- 📱 LOCKSCREEN -->
 <div id="lockscreen" onclick="unlock()">
   <div class="lock-time">💖</div>
-  <div class="lock-text">Face ID required</div>
+  <div class="lock-text">Click anywhere to unlock 💌</div>
   <div class="scan"></div>
 </div>
 
@@ -223,12 +223,9 @@ for (let i = 0; i < 40; i++) {
 <div class="hint">tap 💌</div>
 
 <!-- 🎶 MUSIC -->
-<audio id="bgMusic" loop preload="auto">
-  <source src="passenger-seat.mp3" type="audio/mpeg">
-</audio>
+<audio id="bgMusic" loop preload="auto"></audio>
 
 <script>
-/* 🔓 UNLOCK + CINEMATIC AUDIO */
 function unlock() {
   document.getElementById("lockscreen").style.display = "none";
   document.getElementById("app").style.display = "flex";
@@ -242,8 +239,6 @@ function unlock() {
 
   if (playPromise !== undefined) {
     playPromise.then(() => {
-
-      // 🎬 FADE IN MUSIC (cinematic)
       let vol = 0;
       const fade = setInterval(() => {
         if (vol < 0.5) {
@@ -253,18 +248,15 @@ function unlock() {
           clearInterval(fade);
         }
       }, 120);
-
     }).catch(() => {});
   }
 
-  // 💓 heartbeat feel
   document.body.style.transform = "scale(1.01)";
   setTimeout(() => {
     document.body.style.transform = "scale(1)";
   }, 300);
 }
 
-/* 💬 CHAT */
 const chatMessages = [
   {text: "h1 m4h@l kU3", type: "me"},
   {text: "hi alli ganda :p", type: "her"},
@@ -287,7 +279,6 @@ function startChat() {
       msg.className = "bubble " + chatMessages[i].type;
       msg.innerText = chatMessages[i].text;
 
-      // 💬 tiny cinematic motion
       msg.style.transform = "translateY(5px)";
       setTimeout(() => msg.style.transform = "translateY(0)", 100);
 
@@ -303,7 +294,6 @@ function startChat() {
   show();
 }
 
-/* 🌙 SCENE */
 let step = 0;
 
 const messages = [
